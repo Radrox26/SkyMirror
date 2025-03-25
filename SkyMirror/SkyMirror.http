@@ -1,0 +1,6 @@
+@SkyMirror_HostAddress = http://localhost:5183
+
+GET {{SkyMirror_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
