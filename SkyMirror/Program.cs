@@ -1,4 +1,12 @@
+using Microsoft.EntityFrameworkCore;
+using SkyMirror.DatabaseContext;
+using SkyMirror.Entities;
+
 var builder = WebApplication.CreateBuilder(args);
+
+// ?? Add DbContext to Dependency Injection
+builder.Services.AddDbContext<SkyMirrorDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Add services to the container.
 
