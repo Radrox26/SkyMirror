@@ -31,5 +31,11 @@ namespace SkyMirror.Entities
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // Auto-set on creation
         public DateTime CreatedDate { get; private set; } = DateTime.UtcNow;
+
+        // Navigation Property (One-to-Many with QuotationItems)
+        public ICollection<QuotationItem> QuotationItems { get; private set; } = new List<QuotationItem>();
+
+        // Navigation Property (One-to-Many with QuotationItems)
+        public ICollection<OrderItem> OrderItems { get; private set; } = new List<OrderItem>();
     }
 }
