@@ -33,6 +33,10 @@ namespace SkyMirror.Entities
         // Navigation Property
         public UserRole? UserRole { get; set; }
 
+        // Navigation Property (One-to-Many with Leads)
+        public ICollection<Lead> Leads { get; private set; } = new List<Lead>();
+
+
         // Timestamp
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // Auto-set on creation
         public DateTime CreateDate { get; private set; } = DateTime.UtcNow;

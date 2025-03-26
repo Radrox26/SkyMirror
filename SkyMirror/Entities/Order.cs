@@ -26,5 +26,11 @@ namespace SkyMirror.Entities
 
         [Required] // Ensures OrderDate is always set
         public DateTime OrderDate { get; private set; } = DateTime.UtcNow;
+
+        // Navigation Property (One-to-Many with QuotationItems)
+        public ICollection<OrderItem> OrderItems { get; private set; } = new List<OrderItem>();
+
+        // Navigation Property (One-to-One with Payment)
+        public Payment Payment { get; private set; } = new Payment();
     }
 }

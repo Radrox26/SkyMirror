@@ -26,5 +26,8 @@ namespace SkyMirror.Entities
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // Set once at creation
         public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
+
+        public ICollection<Quotation> Quotations { get; private set; } = new List<Quotation>();
+
     }
 }
