@@ -16,7 +16,10 @@ namespace SkyMirror.Entities
 
         [Required] // Category is mandatory
         [MaxLength(100)] // Limits category length
-        public string Category { get; set; } = string.Empty;
+        public int CategoryId { get; set; }
+
+        [ForeignKey(nameof(CategoryId))]
+        public ProductCategory Category { get; set; } = null!;
 
         [MaxLength(500)] // Limits description length (optional)
         public string Description { get; set; } = string.Empty;

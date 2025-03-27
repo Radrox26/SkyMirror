@@ -10,6 +10,7 @@ namespace SkyMirror.DatabaseContext
         public DbSet<User> Users { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<ProductCategory> ProductCategories { get; set; }
         public DbSet<Lead> Leads { get; set; }
         public DbSet<Quotation> Quotations { get; set; }
         public DbSet<QuotationItem> QuotationItems { get; set; }
@@ -48,6 +49,13 @@ namespace SkyMirror.DatabaseContext
                 .WithOne(qi => qi.Quotation)
                 .HasForeignKey(qi => qi.QuotationId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            // ProductCategory - Product (One-to-Many) - Prevents product category deletion if referenced
+            modelBuilder.Entity<ProductCategory>()
+                .HasMany(pc => pc.Products)
+                .WithOne(p => p.Category)
+                .HasForeignKey(p => p.CategoryId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             // Product - QuotationItem (One-to-Many) - Prevent product deletion if referenced
             modelBuilder.Entity<Product>()
