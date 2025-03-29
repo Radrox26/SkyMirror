@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using SkyMirror.DataAccess.Seeder;
 using SkyMirror.DatabaseContext;
 using SkyMirror.Entities;
 
@@ -16,6 +17,18 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+// Seeding the data
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<SkyMirrorDbContext>();
+
+    // Apply migrations and seed data
+    context.Database.Migrate(); // Applies pending migrations 
+    DatabaseSeeder.SeedRoles(context); // Call seeding method
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
