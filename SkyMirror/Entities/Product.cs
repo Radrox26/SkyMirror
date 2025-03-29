@@ -12,7 +12,7 @@ namespace SkyMirror.Entities
 
         [Required] // Name is mandatory
         [MaxLength(200)] // Limits name length
-        public string Name { get; set; } = string.Empty;
+        public string PanelName { get; set; } = string.Empty;
 
         [Required] // Category is mandatory
         [MaxLength(100)] // Limits category length
@@ -27,6 +27,11 @@ namespace SkyMirror.Entities
         [Required] // Price is mandatory
         [Range(0, double.MaxValue)] // Ensures price is non-negative
         public decimal Price { get; set; }
+
+        [Required]
+        [MaxLength(100)]
+        public int PowerInWatts { get; set; }
+
 
         [Required] // Stock quantity is mandatory
         [Range(0, int.MaxValue)] // Ensures stock is non-negative
