@@ -84,6 +84,15 @@ namespace SkyMirror.DatabaseContext
                 .WithOne(p => p.Order)
                 .HasForeignKey<Payment>(p => p.OrderId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            // Convert Column Names to camelCase
+            foreach (var entity in modelBuilder.Model.GetEntityTypes())
+            {
+                foreach (var property in entity.GetProperties())
+                {
+                    property.SetColumnName(Char.ToLowerInvariant(property.Name[0]) + property.Name.Substring(1));
+                }
+            }
         }
     }
 }
