@@ -11,7 +11,7 @@ namespace SkyMirror.Entities
 
         [Required] // Ensures RoleName is not null
         [MaxLength(50)] // Limits RoleName to 50 characters
-        public string RoleName { get; private set; } = string.Empty;
+        public string RoleName { get; set; } = string.Empty;
 
         // Navigation Property (One-to-Many with Users)
         public ICollection<User> Users { get; private set; } = new List<User>();

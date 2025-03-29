@@ -7,7 +7,7 @@ namespace SkyMirror.Entities
     {
         [Key]  // Primary Key
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int CategoryId { get; set; }
+        public int CategoryId { get; private set; }
 
         [Required]
         [MaxLength(100)]
