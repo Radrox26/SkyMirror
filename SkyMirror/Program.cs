@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using SkyMirror.DataAccess.Interfaces;
+using SkyMirror.DataAccess.Repository;
 using SkyMirror.DataAccess.Seeder;
 using SkyMirror.DatabaseContext;
 using SkyMirror.Entities;
@@ -8,6 +10,19 @@ var builder = WebApplication.CreateBuilder(args);
 // ?? Add DbContext to Dependency Injection
 builder.Services.AddDbContext<SkyMirrorDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Register Repositories
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserRoleRepository, UserRoleRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
+builder.Services.AddScoped<ILeadRepository, LeadRepository>();
+builder.Services.AddScoped<IQuotationRepository, QuotationRepository>();
+builder.Services.AddScoped<IQuotationItemRepository, QuotationItemRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IOrderItemRepository, OrderItemRepository>();
+builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+
 
 // Add services to the container.
 
