@@ -1,6 +1,10 @@
-﻿namespace SkyMirror.BusinessLogic.Dto.Item
+﻿namespace SkyMirror.BusinessLogic.Dto.Order
 {
     public class CreateOrderItemRequestDto
     {
+        public int OrderId { get; set; }
+        public int ProductId { get; set; }
+        public int Quantity { get; set; }
+        public decimal Price { get; set; }
     }
 }
