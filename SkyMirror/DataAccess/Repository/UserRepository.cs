@@ -51,5 +51,10 @@ namespace SkyMirror.DataAccess.Repository
                 await _context.SaveChangesAsync();
             }
         }
+
+        public Task<User> GetByRefreshTokenAsync(string refreshToken)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

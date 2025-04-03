@@ -4,6 +4,8 @@ using SkyMirror.DataAccess.Repository;
 using SkyMirror.DataAccess.Seeder;
 using SkyMirror.DatabaseContext;
 using SkyMirror.Entities;
+using SkyMirror.Security.Interfaces;
+using SkyMirror.Security.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +24,8 @@ builder.Services.AddScoped<IQuotationItemRepository, QuotationItemRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IOrderItemRepository, OrderItemRepository>();
 builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+
+builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 
 
 // Add services to the container.
