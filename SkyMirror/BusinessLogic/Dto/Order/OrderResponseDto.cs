@@ -1,5 +1,4 @@
-﻿using SkyMirror.BusinessLogic.Dto.OrderItem;
-
+﻿
 namespace SkyMirror.BusinessLogic.Dto.Order
 {
     public class OrderResponseDto
