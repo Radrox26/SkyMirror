@@ -40,5 +40,9 @@ namespace SkyMirror.Entities
         // Timestamp
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // Auto-set on creation
         public DateTime CreateDate { get; private set; } = DateTime.UtcNow;
+
+        public string? RefreshToken { get; set; } 
+
+        public DateTime? RefreshTokenExpiry { get; set; }
     }
 }

@@ -1,6 +1,4 @@
-﻿using SkyMirror.BusinessLogic.Dto.Item;
-
-namespace SkyMirror.BusinessLogic.Dto.Order
+﻿namespace SkyMirror.BusinessLogic.Dto.Order
 {
     public class CreateOrderRequestDto
     {
