@@ -6,6 +6,7 @@ namespace SkyMirror.DataAccess.Interfaces
     {
         Task<IEnumerable<Product>> GetAllAsync(); 
         Task<Product?> GetByIdAsync(int id);
+        Task<string> GetProductNameAsync(int id);
         Task<int> AddAsync(Product product);
         Task UpdateAsync(Product product);
         Task DeleteAsync(int id);
