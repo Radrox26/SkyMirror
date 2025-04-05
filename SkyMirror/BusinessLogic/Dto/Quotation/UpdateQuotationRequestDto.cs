@@ -2,12 +2,14 @@
 
 namespace SkyMirror.BusinessLogic.Dto.Quotation
 {
-    public class CreateQuotationRequestDto
+    public class UpdateQuotationRequestDto
     {
+        public int QuotationId { get; set; }
         public int LeadId { get; set; }
         public int SalesManagerId { get; set; }
         public decimal TotalAmount { get; set; }
         public string Status { get; set; } = "Pending";
-        public List<CreateQuotationItemRequestDto> QuotationItems { get; set; } = new();
+        public List<UpdateQuotationItemRequestDto> QuotationItems { get; set; } = new();
+
     }
 }
