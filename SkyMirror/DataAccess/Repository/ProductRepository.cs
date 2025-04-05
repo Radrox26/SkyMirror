@@ -46,5 +46,15 @@ namespace SkyMirror.DataAccess.Repository
                 await _context.SaveChangesAsync();
             }
         }
+
+        public async Task<string> GetProductNameAsync(int id)
+        {
+            var product = await _context.Products.FirstOrDefaultAsync(p => p.ProductId == id);
+            if (product == null)
+            {
+                throw new KeyNotFoundException("Product not found");
+            }
+            return product.PanelName;
+        }
     }
 }
