@@ -37,10 +37,11 @@ namespace SkyMirror.DataAccess.Repository
                 .ToListAsync();
         }
 
-        public async Task AddAsync(Order order)
+        public async Task<int> AddAsync(Order order)
         {
             await _context.Orders.AddAsync(order);
             await _context.SaveChangesAsync();
+            return order.OrderId;
         }
 
         public async Task UpdateAsync(Order order)
