@@ -64,6 +64,9 @@ public class QuotationItemService : IQuotationItemService
 
     public async Task DeleteAsync(int id)
     {
+        var item = await _quotationItemRepository.GetByIdAsync(id)
+                   ?? throw new KeyNotFoundException("Quotation item not found");
+
         await _quotationItemRepository.DeleteAsync(id);
     }
 }
