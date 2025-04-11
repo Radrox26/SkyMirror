@@ -3,6 +3,8 @@ using SkyMirror.BusinessLogic.Interfaces;
 using SkyMirror.DataAccess.Interfaces;
 using SkyMirror.Entities;
 
+namespace SkyMirror.BusinessLogic.Services
+{
 public class QuotationItemService : IQuotationItemService
 {
     private readonly IQuotationItemRepository _quotationItemRepository;
@@ -69,4 +71,5 @@ public class QuotationItemService : IQuotationItemService
 
         await _quotationItemRepository.DeleteAsync(id);
     }
+}
 }
