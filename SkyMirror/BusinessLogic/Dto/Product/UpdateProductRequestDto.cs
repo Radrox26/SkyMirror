@@ -1,6 +1,6 @@
 ﻿namespace SkyMirror.BusinessLogic.Dto.Product
 {
-    public class CreateProductRequestDto
+    public class UpdateProductRequestDto
     {
         public string PanelName { get; set; } = string.Empty;
         public int CategoryId { get; set; }

@@ -4,19 +4,30 @@ namespace SkyMirror.BusinessLogic.Dto.Product
 {
     public class ProductResponseDto
     {
-        public int Id { get; }
-        public string Name { get; }
+        public int ProductId { get; }
+        public string PanelName { get; }
+        public string CategoryName { get; }
         public string Description { get; }
         public decimal Price { get; }
-        public ProductCategoryResponseDto Category { get; }
+        public int PowerInWatts { get; }
+        public bool IsAvailable { get; }
 
-        public ProductResponseDto(int id, string name, string description, decimal price, ProductCategoryResponseDto category)
+        public ProductResponseDto(
+            int productId,
+            string panelName,
+            string categoryName,
+            string description,
+            decimal price,
+            int powerInWatts,
+            int stockQuantity)
         {
-            Id = id;
-            Name = name;
+            ProductId = productId;
+            PanelName = panelName;
+            CategoryName = categoryName;
             Description = description;
             Price = price;
-            Category = category;
+            PowerInWatts = powerInWatts;
+            IsAvailable = stockQuantity > 0;
         }
     }
 }
