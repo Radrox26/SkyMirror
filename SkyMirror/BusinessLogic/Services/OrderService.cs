@@ -1,8 +1,8 @@
 ﻿using SkyMirror.BusinessLogic.Dto.Order;
+using SkyMirror.BusinessLogic.Dto.OrderItem;
 using SkyMirror.BusinessLogic.Interfaces;
 using SkyMirror.DataAccess.Interfaces;
 using SkyMirror.Entities;
-using System.Security.Cryptography;
 
 namespace SkyMirror.BusinessLogic.Services
 {

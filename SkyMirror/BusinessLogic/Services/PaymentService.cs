@@ -53,5 +53,24 @@ namespace SkyMirror.BusinessLogic.Services
 
             await _paymentRepository.UpdateAsync(payment);
         }
+
+        public async Task<PaymentResponseDto> GetByIdAsync(int paymentId)
+        {
+            var payment = await _paymentRepository.GetByIdAsync(paymentId);
+
+            if (payment == null)
+                throw new KeyNotFoundException($"Payment with ID {paymentId} not found.");
+
+            var response = new PaymentResponseDto
+            (
+                payment.PaymentId,
+                payment.OrderId,
+                payment.AmountPaid,
+                payment.PaymentStatus,
+                payment.PaymentDate
+            );
+
+            return response;
+        }
     }
 }
