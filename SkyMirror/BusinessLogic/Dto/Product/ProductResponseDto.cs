@@ -1,5 +1,4 @@
-﻿using SkyMirror.BusinessLogic.Dto.ProductCategory;
-
+﻿
 namespace SkyMirror.BusinessLogic.Dto.Product
 {
     public class ProductResponseDto

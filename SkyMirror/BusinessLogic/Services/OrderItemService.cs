@@ -1,4 +1,5 @@
-﻿using SkyMirror.BusinessLogic.Dto.OrderItem;
+﻿using SkyMirror.BusinessLogic.Dto.Order;
+using SkyMirror.BusinessLogic.Dto.OrderItem;
 using SkyMirror.BusinessLogic.Interfaces;
 using SkyMirror.DataAccess.Interfaces;
 using SkyMirror.Entities;
@@ -72,6 +73,21 @@ namespace SkyMirror.BusinessLogic.Services
                 ?? throw new KeyNotFoundException("Order item not found");
 
             await _orderItemRepository.DeleteAsync(orderItem.OrderId);
+        }
+
+        public async Task<IEnumerable<OrderItemResponseDto>?> GetItemsByOrderIdAsync(int id)
+        {
+            var orderItems = await _orderItemRepository.GetByOrderIdAsync(id)
+                ?? throw new KeyNotFoundException("Order item not found");
+
+            List<OrderItemResponseDto> response = new List<OrderItemResponseDto>();
+
+            foreach (var orderItem in orderItems)
+            {
+                var orderItemResponse = new OrderItemResponseDto(orderItem.OrderItemId, orderItem.OrderId, orderItem.ProductId, orderItem.Quantity, orderItem.Price);
+                response.Add(orderItemResponse);
+            }
+            return response;
         }
     }
 }

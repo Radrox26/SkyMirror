@@ -37,7 +37,7 @@ namespace SkyMirror.BusinessLogic.Services
             return new LeadResponseDto(lead.LeadId, lead.UserId, lead.InquiryDetails, lead.Status, lead.CreatedAt);
         }
 
-        public async Task CreateLeadAsync(CreateLeadRequestDto request)
+        public async Task<int> CreateLeadAsync(CreateLeadRequestDto request)
         {
             var user = await _userRepository.GetByIdAsync(request.UserId);
             if (user == null)
@@ -50,7 +50,8 @@ namespace SkyMirror.BusinessLogic.Services
                 Status = "New"
             };
 
-            await _leadRepository.AddAsync(lead);
+            var leadId = await _leadRepository.AddAsync(lead);
+            return leadId;
         }
 
         public async Task UpdateLeadStatusAsync(int leadId, UpdateLeadRequestDto request)
