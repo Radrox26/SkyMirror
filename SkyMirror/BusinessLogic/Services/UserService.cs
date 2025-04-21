@@ -51,7 +51,7 @@ namespace SkyMirror.BusinessLogic.Services
             return new UserResponseDto(user.UserId, user.FullName, user.Email, userRoleResponse, user.CreateDate);
         }
 
-        public async Task RegisterUserAsync(CreateUserRequestDto request)
+        public async Task<int> RegisterUserAsync(CreateUserRequestDto request)
         {
             if (await _userRepository.GetByEmailAsync(request.Email) != null)
                 throw new InvalidOperationException("Email already in use");
@@ -67,7 +67,8 @@ namespace SkyMirror.BusinessLogic.Services
                 UserRoleId = userRole.UserRoleId
             };
 
-            await _userRepository.AddAsync(user);
+            var userId = await _userRepository.AddAsync(user);
+            return userId;
         }
 
         public async Task UpdateUserAsync(int userId, UpdateUserRequestDto request)

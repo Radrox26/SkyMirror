@@ -7,6 +7,7 @@ namespace SkyMirror.BusinessLogic.Interfaces
     {
         Task<IEnumerable<OrderItemResponseDto>> GetAllAsync();
         Task<OrderItemResponseDto?> GetByIdAsync(int id);
+        Task<IEnumerable<OrderItemResponseDto>?> GetItemsByOrderIdAsync(int id);
         Task<int> CreateAsync(CreateOrderItemRequestDto request);
         Task UpdateAsync(int id, UpdateOrderItemRequestDto request);
         Task DeleteAsync(int id);

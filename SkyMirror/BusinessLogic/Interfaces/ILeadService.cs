@@ -6,7 +6,7 @@ namespace SkyMirror.BusinessLogic.Interfaces
     {
         Task<IEnumerable<LeadResponseDto>> GetAllLeadsAsync();
         Task<LeadResponseDto> GetLeadByIdAsync(int leadId);
-        Task CreateLeadAsync(CreateLeadRequestDto request);
+        Task<int> CreateLeadAsync(CreateLeadRequestDto request);
         Task UpdateLeadStatusAsync(int leadId, UpdateLeadRequestDto request);
         Task DeleteLeadAsync(int leadId);
 

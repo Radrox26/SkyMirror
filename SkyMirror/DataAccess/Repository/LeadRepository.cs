@@ -29,10 +29,11 @@ namespace SkyMirror.DataAccess.Repository
             return await _context.Leads.Where(l => l.UserId == userId).ToListAsync();
         }
 
-        public async Task AddAsync(Lead lead)
+        public async Task<int> AddAsync(Lead lead)
         {
             await _context.Leads.AddAsync(lead);
             await _context.SaveChangesAsync();
+            return lead.LeadId;
         }
 
         public async Task UpdateAsync(Lead lead)
