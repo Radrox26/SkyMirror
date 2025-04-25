@@ -6,6 +6,7 @@ using SkyMirror.BusinessLogic.Dto.UserRole;
 using SkyMirror.BusinessLogic.Interfaces;
 using SkyMirror.DataAccess.Interfaces;
 using SkyMirror.Entities;
+using SkyMirror.Security.Interfaces;
 
 namespace SkyMirror.BusinessLogic.Services
 {
@@ -13,11 +14,13 @@ namespace SkyMirror.BusinessLogic.Services
     {
         private readonly IUserRoleRepository _userRoleRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IPasswordHasher _passwordHasher;
 
-        public UserService(IUserRepository userRepository, IUserRoleRepository userRoleRepository)
+        public UserService(IUserRepository userRepository, IUserRoleRepository userRoleRepository, IPasswordHasher passwordHasher)
         {
             _userRepository = userRepository;
             _userRoleRepository = userRoleRepository;
+            _passwordHasher = passwordHasher;
         }
 
         public async Task<IEnumerable<UserResponseDto>> GetAllUsersAsync()
@@ -63,7 +66,7 @@ namespace SkyMirror.BusinessLogic.Services
             {
                 FullName = request.FullName,
                 Email = request.Email,
-                PasswordHash = "", // Password will be handled in AuthService
+                PasswordHash = _passwordHasher.HashPassword(request.Password), 
                 UserRoleId = userRole.UserRoleId
             };
 
