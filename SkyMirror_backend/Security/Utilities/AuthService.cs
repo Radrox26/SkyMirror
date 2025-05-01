@@ -1,10 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
-using SkyMirror.BusinessLogic.Dto.User;
-using SkyMirror.BusinessLogic.Interfaces;
+﻿using SkyMirror.BusinessLogic.Dto.User;
 using SkyMirror.DataAccess.Interfaces;
 using SkyMirror.Security.Interfaces;
-using SkyMirror.Entities;
 using SkyMirror.CommonUtilities.Interface;
 
 namespace SkyMirror.BusinessLogic.Services
@@ -37,44 +33,60 @@ namespace SkyMirror.BusinessLogic.Services
             var userRole = await _userRoleRepository.GetByIdAsync(user.UserRoleId)
                          ?? throw new InvalidOperationException("User role not found");
 
-            var tokenExpiry = DateTime.UtcNow.AddHours(1);
+            var accessTokenExpiry = DateTime.UtcNow.AddHours(1);
+            var refreshTokenExpiry = DateTime.UtcNow.AddDays(7);
 
             // Create a temporary response DTO (without token)
-            var userResponse = new LoginUserResponseDto("", tokenExpiry, user.FullName, user.Email, userRole.RoleName);
+            var userResponse = new LoginUserResponseDto("", accessTokenExpiry, user.FullName, user.Email, userRole.RoleName);
 
             // Now generate the token using the response DTO
             var token = _jwtTokenService.GenerateToken(userResponse);
+            var refreshToken = _jwtTokenService.GenerateRefreshToken();
+
+            // Update user with refresh token and expiry
+            user.RefreshToken = refreshToken;
+            user.RefreshTokenExpiry = refreshTokenExpiry;
+            await _userRepository.UpdateAsync(user);
 
             // Return the updated response DTO with the generated token
-            return new LoginUserResponseDto(token, tokenExpiry, user.FullName, user.Email, userRole.RoleName);
+            return new LoginUserResponseDto(token, accessTokenExpiry, user.FullName, user.Email, userRole.RoleName)
+            {
+                RefreshToken = refreshToken,
+                RefreshTokenExpiry = refreshTokenExpiry
+            };
         }
 
 
-        public async Task<LoginUserResponseDto> RefreshTokenAsync(RefreshTokenRequestDto request)
+        public async Task<LoginUserResponseDto> RefreshTokenAsync(string refreshToken)
         {
-            var user = await _userRepository.GetByRefreshTokenAsync(request.RefreshToken);
-            if (user == null || user.RefreshTokenExpiry == null || user.RefreshTokenExpiry < DateTime.UtcNow)
+            var user = await _userRepository.GetByRefreshTokenAsync(refreshToken);
+            if (user == null || user.RefreshTokenExpiry == null )
                 throw new UnauthorizedAccessException("Invalid or expired refresh token");
 
             var userRole = await _userRoleRepository.GetByIdAsync(user.UserRoleId)
                          ?? throw new InvalidOperationException("User role not found");
 
-            var tokenExpiry = DateTime.UtcNow.AddHours(1);
+            var accessTokenExpiry = DateTime.UtcNow.AddHours(1);
+            var newRefreshToken = _jwtTokenService.GenerateRefreshToken();
+            var newRefreshTokenExpiry = DateTime.UtcNow.AddDays(7);
 
             // Create a temporary response DTO (without token)
-            var userResponse = new LoginUserResponseDto("", tokenExpiry, user.FullName, user.Email, userRole.RoleName);
+            var userResponse = new LoginUserResponseDto("", accessTokenExpiry, user.FullName, user.Email, userRole.RoleName);
 
             // Now generate the token using the response DTO
             var newToken = _jwtTokenService.GenerateToken(userResponse);
-            var newRefreshToken = _jwtTokenService.GenerateRefreshToken();
 
             // Update user with new refresh token and expiry
             user.RefreshToken = newRefreshToken;
-            user.RefreshTokenExpiry = DateTime.UtcNow.AddDays(7);
+            user.RefreshTokenExpiry = newRefreshTokenExpiry;
             await _userRepository.UpdateAsync(user);
 
             // Return updated response DTO with new token
-            return new LoginUserResponseDto(newToken, tokenExpiry, user.FullName, user.Email, userRole.RoleName);
+            return new LoginUserResponseDto(newToken, accessTokenExpiry, user.FullName, user.Email, userRole.RoleName)
+            {
+                RefreshToken = newRefreshToken,
+                RefreshTokenExpiry = newRefreshTokenExpiry
+            };
         }
 
 
