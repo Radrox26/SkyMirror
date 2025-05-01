@@ -2,16 +2,19 @@
 {
     public class LoginUserResponseDto
     {
-        public string Token { get; }
-        public DateTime ExpiresAt { get; }
+        public string AccessToken { get; }
+        public DateTime AccessTokenExpiresAt { get; }
         public string FullName { get; }
         public string Email { get; }
         public string RoleName { get; }
 
+        public string? RefreshToken { get; set; } // for cookie
+        public DateTime? RefreshTokenExpiry { get; set; }
+
         public LoginUserResponseDto(string token, DateTime expiresAt, string fullName, string email, string roleName)
         {
-            Token = token;
-            ExpiresAt = expiresAt;
+            AccessToken = token;
+            AccessTokenExpiresAt = expiresAt;
             FullName = fullName;
             Email = email;
             RoleName = roleName;

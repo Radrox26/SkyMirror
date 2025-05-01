@@ -13,6 +13,8 @@ function Login() {
     const [registerEmail, setRegisterEmail] = useState('');
     const [registerPassword, setRegisterPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [loginEmail, setLoginEmail] = useState('');
+    const [loginPassword, setLoginPassword] = useState('');
 
     const registerLink = () => {
         setAction(' active');
@@ -20,6 +22,14 @@ function Login() {
 
     const loginLink = () => {
         setAction('');
+    }
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+
+        const payload = {
+
+        }
     }
 
     const handleRegister = async (e) => {
