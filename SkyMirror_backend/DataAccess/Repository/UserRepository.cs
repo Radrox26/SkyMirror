@@ -52,9 +52,9 @@ namespace SkyMirror.DataAccess.Repository
             }
         }
 
-        public Task<User> GetByRefreshTokenAsync(string refreshToken)
+        public async Task<User?> GetByRefreshTokenAsync(string refreshToken)
         {
-            throw new NotImplementedException();
+            return await _context.Users.FirstOrDefaultAsync(u => u.RefreshToken == refreshToken);
         }
     }
 }
