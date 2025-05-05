@@ -3,6 +3,7 @@ import './LoginRegister.css';
 import { MdEmail } from "react-icons/md";
 import { FaLock, FaUser } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
+import axiosInstance from '../../Axios/axiosInstance';
 
 
 
@@ -29,8 +30,8 @@ function Login() {
 
         const payload = {
 
+            }
         }
-    }
 
     const handleRegister = async (e) => {
         e.preventDefault();
@@ -47,21 +48,13 @@ function Login() {
         };
 
         try {
-            const response = await fetch("https://localhost:7290/api/user", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(payload),
-            });
+            const response = await axiosInstance.post("/user", payload);
 
-            if (response.ok) {
+            if (response.status === 201) {
                 alert("User registered successfully!");
-                // Optionally, switch back to login
                 setAction('');
             } else {
-                const error = await response.json();
-                alert("Registration failed: " + (error.message || response.statusText));
+                alert("Registration failed: " + (response.data.message || response.statusText));
             }
         } catch (err) {
             alert("Something went wrong during registration.");
