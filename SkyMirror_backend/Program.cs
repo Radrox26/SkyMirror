@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using SkyMirror.BusinessLogic.Interfaces;
 using SkyMirror.BusinessLogic.Services;
+using SkyMirror.CommonUtilities.Interface;
+using SkyMirror.CommonUtilities.Utilities;
 using SkyMirror.DataAccess.Interfaces;
 using SkyMirror.DataAccess.Repository;
 using SkyMirror.DataAccess.Seeder;
@@ -39,6 +41,7 @@ builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IOrderItemRepository, OrderItemRepository>();
 builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 
+builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
