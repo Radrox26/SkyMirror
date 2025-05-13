@@ -27,7 +27,7 @@ namespace SkyMirror.BusinessLogic.Services
         public async Task<LoginUserResponseDto> LoginUserAsync(LoginUserRequestDto request)
         {
             var user = await _userRepository.GetByEmailAsync(request.Email);
-            if (user == null || !_passwordHasher.VerifyPassword(request.Password, user.PasswordHash))
+            if (user == null || !await _passwordHasher.VerifyPassword(user.PasswordHash, request.Password))
                 throw new UnauthorizedAccessException("Invalid credentials");
 
             var userRole = await _userRoleRepository.GetByIdAsync(user.UserRoleId)
@@ -109,10 +109,10 @@ namespace SkyMirror.BusinessLogic.Services
             if (request.NewPassword != request.ConfirmNewPassword)
                 throw new ArgumentException("New password and confirm password do not match");
 
-            if (!_passwordHasher.VerifyPassword(request.OldPassword, user.PasswordHash))
+            if (!await _passwordHasher.VerifyPassword(request.OldPassword, user.PasswordHash))
                 throw new UnauthorizedAccessException("Incorrect old password");
 
-            user.PasswordHash = _passwordHasher.HashPassword(request.NewPassword);
+            user.PasswordHash = await _passwordHasher.HashPassword(request.NewPassword);
             await _userRepository.UpdateAsync(user);
         }
     }

@@ -66,7 +66,7 @@ namespace SkyMirror.BusinessLogic.Services
             {
                 FullName = request.FullName,
                 Email = request.Email,
-                PasswordHash = _passwordHasher.HashPassword(request.Password), 
+                PasswordHash = await _passwordHasher.HashPassword(request.Password), 
                 UserRoleId = userRole.UserRoleId
             };
 

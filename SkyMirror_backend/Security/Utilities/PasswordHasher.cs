@@ -4,13 +4,15 @@ namespace SkyMirror.Security.Utilities
 {
     public class PasswordHasher : IPasswordHasher
     {
-        public string HashPassword(string password)
+        public async Task<string> HashPassword(string password)
         {
+            await Task.CompletedTask;
             return BC.EnhancedHashPassword(password, 13);
         }
 
-        public bool VerifyPassword(string hashedPassword, string inputPassword)
+        public async Task<bool> VerifyPassword(string hashedPassword, string inputPassword)
         {
+            await Task.CompletedTask;
             return BC.EnhancedVerify(inputPassword, hashedPassword);
         }
     }
