@@ -5,6 +5,7 @@ import { FaLock, FaUser } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
 import axiosInstance from '../../Axios/axiosInstance';
 import { useNavigate } from 'react-router-dom';
+import loginBackground from '../../Images/loginBackground.png'
 
 function LoginRegister() {
     const [action, setAction] = useState('');
@@ -75,8 +76,15 @@ function LoginRegister() {
     };
 
     return (
+        <div>
+        <div
+                className="background-blur"
+                style={{ backgroundImage: `url(${loginBackground})` }}
+        />
+
         <div className={`wrapper${action}`}>
             {/* Login Form */}
+
             <div className="form-box login">
                 <form onSubmit={handleLogin}>
                     <h1>Login</h1>
@@ -166,6 +174,7 @@ function LoginRegister() {
                         <p>Already using Sky Mirror? <a href="#" onClick={loginLink}>Login</a></p>
                     </div>
                 </form>
+            </div>
             </div>
         </div>
     );
