@@ -1,6 +1,7 @@
 ﻿import React, { useEffect, useState } from 'react';
 import axiosInstance from '../../Axios/axiosInstance';
 import './ProductsPage.css';
+import productBackgroundImage from '../../Images/Solar Panels at Sunset.png';
 
 function ProductsPage() {
     const [products, setProducts] = useState([]);
@@ -30,17 +31,28 @@ function ProductsPage() {
     if (error) return <div className="error">{error}</div>;
 
     return (
-        <div className="products-container">
-            <h1>Available Products</h1>
-            <div className="products-grid">
-                {products.map(product => (
-                    <div className="product-card" key={product.id}>
-                        <img src={product.imageUrl || 'https://via.placeholder.com/150'} alt={product.name} />
-                        <h3>{product.name}</h3>
-                        <p>{product.description}</p>
-                        <div className="price">₹ {product.price}</div>
-                    </div>
-                ))}
+        <div className="products-page-wrapper">
+            {/* Blurred background image */}
+            <div
+                className="background-blur"
+                style={{ backgroundImage: `url(${productBackgroundImage})` }}
+            />
+
+            <div className="products-container">
+                <h1>Available Products</h1>
+                <div className="products-grid">
+                    {products.map(product => (
+                        <div className="product-card" key={product.id}>
+                            <img
+                                src={product.imageUrl || 'https://via.placeholder.com/150'}
+                                alt={product.name}
+                            />
+                            <h3>{product.name}</h3>
+                            <p>{product.description}</p>
+                            <div className="price">₹ {product.price}</div>
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     );
