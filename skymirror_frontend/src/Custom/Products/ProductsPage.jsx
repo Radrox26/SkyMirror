@@ -47,8 +47,7 @@ function ProductsPage() {
                                 src={product.imageUrl || 'https://via.placeholder.com/150'}
                                 alt={product.name}
                             />
-                            <h3>{product.name}</h3>
-                            <p>{product.description}</p>
+                            <h3>{product.panelName}</h3>
                             <div className="price">₹ {product.price}</div>
                         </div>
                     ))}
