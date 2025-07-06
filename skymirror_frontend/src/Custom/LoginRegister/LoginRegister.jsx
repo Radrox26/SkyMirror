@@ -6,6 +6,7 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import axiosInstance from '../../Axios/axiosInstance';
 import { useNavigate } from 'react-router-dom';
 import loginBackground from '../../Images/loginBackground.png'
+import logo from '../../Images/Sky Mirror Logo.png';
 
 function LoginRegister() {
     const [action, setAction] = useState('');
@@ -77,16 +78,26 @@ function LoginRegister() {
 
     return (
         <div>
-        <div
-                className="background-blur"
-                style={{ backgroundImage: `url(${loginBackground})` }}
-        />
+            
+            <div
+                    className="background-blur"
+                    style={{ backgroundImage: `url(${loginBackground})` }}
+            />
 
-        <div className={`wrapper${action}`}>
+            <div className={`wrapper${action}`}>
+
             {/* Login Form */}
 
             <div className="form-box login">
-                <form onSubmit={handleLogin}>
+                    <form onSubmit={handleLogin}>
+
+                    {/* Logo */}
+
+                    <div
+                        className="logo-container"
+                        style={{ backgroundImage: `url(${logo})` }}
+                    />
+
                     <h1>Login</h1>
 
                     <div className="input-box">
@@ -121,7 +132,15 @@ function LoginRegister() {
 
             {/* Register Form */}
             <div className="form-box register">
-                <form onSubmit={handleRegister}>
+                    <form onSubmit={handleRegister}>
+
+                    {/* Logo */}
+
+                    <div
+                        className="logo-container-register"
+                        style={{ backgroundImage: `url(${logo})` }}
+                    />
+
                     <h1>Registration</h1>
 
                     <div className="input-box">
