@@ -1,10 +1,27 @@
-// This file allows you to configure ESLint according to your project's needs, so that you
-// can control the strictness of the linter, the plugins to use, and more.
+.home-page-wrapper {
+    display: flex;
+}
 
-// For more information about configuring ESLint, visit https://eslint.org/docs/user-guide/configuring/
+.home-page-content {
+    margin-left: 200px;
+    flex: 1;
+    padding: 40px 20px;
+    transition: margin-left 0.3s;
+}
 
-module.exports = [
-    {
-        rules: {}
-    }
-];
+.sidebar.closed + .home-page-content {
+    margin-left: 50px;
+}
+
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: blur(8px);
+    z-index: -1;
+    opacity: 0.8;
+}
