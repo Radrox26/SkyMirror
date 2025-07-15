@@ -1,27 +1,120 @@
 .home-page-wrapper {
     display: flex;
+    height: 800px;
+    margin-right: 300px;
 }
 
 .home-page-content {
     margin-left: 200px;
     flex: 1;
     padding: 40px 20px;
-    transition: margin-left 0.3s;
+    transition: margin-right 0.3s;
 }
 
 .sidebar.closed + .home-page-content {
-    margin-left: 50px;
+    margin-right: 150px;
 }
 
-.background {
+.background-wrapper {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-size: cover;
-    background-position: center;
-    filter: blur(8px);
     z-index: -1;
-    opacity: 0.8;
+    overflow: hidden;
+    background-color: #1C1C1C;
+}
+
+.background-image {
+    position: absolute;
+    top: 0;
+    right: 0; 
+    width: 500px;
+    filter: blur(5px);
+    opacity: 1;
+    border-bottom-left-radius: 100px; 
+}
+
+.hero h1 {
+    color: #ff6a00
+}
+
+.home-topbar-text {
+    font-size: 40px;
+    color: #F5F5F5;
+    margin: 0;
+    font-weight: bold;
+}
+
+/* Left Side - Marquee Text */
+.home-topbar-left {
+    flex: 1;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.home-scrolling-text {
+    display: inline-block;
+    padding-left: 100%;
+    animation: home-scroll-left 15s linear infinite;
+    color: gold;
+    font-weight: bold;
+    font-size: 32px;
+}
+
+@keyframes home-scroll-left {
+    from {
+        transform: translateX(0%);
+    }
+
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+/* Right Side - Contact Tile */
+.home-topbar-right {
+    background: linear-gradient(135deg, #FFD600, #FF6A00);
+    color: #000000;
+    padding: 8px 16px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #FF6A00;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: right;
+    white-space: nowrap;
+}
+
+    .home-topbar-right p {
+        margin: 0;
+        line-height: 1.3;
+    }
+
+.arrow-wrapper {
+    justify-content: center;
+    margin: -650px 0 0 370px;
+    height: 20px;
+    width: 100%;
+    animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: rotate(-45deg) translateY(0);
+    }
+
+    50% {
+        transform: rotate(-45deg) translateY(-5px);
+    }
+}
+
+.arrow {
+    height: 200px;
+    width: 400px;
+}
+
+.arrow-text{
+    margin: -160px 0 0 150px;
+    color: #b57612
 }

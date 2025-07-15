@@ -2,6 +2,18 @@
 import axiosInstance from '../../Axios/axiosInstance';
 import './ProductsPage.css';
 import productBackgroundImage from '../../Images/Solar Panels at Sunset.png';
+import Sidebar from '../SharedUI/sidebar.jsx';
+import TopBar from '../SharedUI/topbar.jsx';
+import monofacialImage from '../../Images/monofacial.jpg';
+import bifacialImage from '../../Images/bifacial.jpg';
+import topconImage from '../../Images/topcon.jpg';
+
+const getImageForPanel = (panelName, fallbackImage) => {
+    if (panelName.toUpperCase().includes('PHOTOVOLTAIC')) return monofacialImage;
+    if (panelName.toUpperCase().includes('BIFACIAL')) return bifacialImage;
+    if (panelName.toUpperCase().includes('TOPCON')) return topconImage;
+    return fallbackImage || 'https://via.placeholder.com/150';
+};
 
 function ProductsPage() {
     const [products, setProducts] = useState([]);
@@ -37,18 +49,22 @@ function ProductsPage() {
                 className="background-blur"
                 style={{ backgroundImage: `url(${productBackgroundImage})` }}
             />
-
+            <TopBar>
+                <h1 className="topbar-title">Available Panels</h1>
+            </TopBar>
+            <Sidebar />
             <div className="products-container">
-                <h1>Available Products</h1>
                 <div className="products-grid">
                     {products.map(product => (
-                        <div className="product-card" key={product.id}>
+                        <div className="product-card" key={product.productId}>
                             <img
-                                src={product.imageUrl || 'https://via.placeholder.com/150'}
+                                src={getImageForPanel(product.panelName, product.imageUrl)}
                                 alt={product.name}
                             />
                             <h3>{product.panelName}</h3>
+                            <h4>{product.powerInWatts} Watts</h4>
                             <div className="price">₹ {product.price}</div>
+                            <button className="buyButton">Buy now</button>
                         </div>
                     ))}
                 </div>
