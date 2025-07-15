@@ -39,7 +39,7 @@ function LoginRegister() {
                 const { accessToken } = response.data;
                 localStorage.setItem('accessToken', accessToken);
                 alert("Login successful!");
-                navigate('/products');
+                navigate('/home');
             }
         } catch (error) {
             alert("Login failed: " + (error.response?.data?.message || error.message));
