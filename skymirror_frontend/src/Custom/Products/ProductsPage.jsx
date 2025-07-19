@@ -4,9 +4,10 @@ import './ProductsPage.css';
 import productBackgroundImage from '../../Images/Solar Panels at Sunset.png';
 import Sidebar from '../SharedUI/sidebar.jsx';
 import TopBar from '../SharedUI/topbar.jsx';
-import monofacialImage from '../../Images/monofacial.jpg';
-import bifacialImage from '../../Images/bifacial.jpg';
-import topconImage from '../../Images/topcon.jpg';
+import monofacialImage from '../../Images/ProductImages/Monofacial/monofacial.jpg';
+import bifacialImage from '../../Images/ProductImages/Bifacial/bifacial.jpg';
+import topconImage from '../../Images/ProductImages/Topcon/topcon.jpg';
+import { useNavigate } from 'react-router-dom';
 
 const getImageForPanel = (panelName, fallbackImage) => {
     if (panelName.toUpperCase().includes('PHOTOVOLTAIC')) return monofacialImage;
@@ -19,6 +20,7 @@ function ProductsPage() {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -64,7 +66,11 @@ function ProductsPage() {
                             <h3>{product.panelName}</h3>
                             <h4>{product.powerInWatts} Watts</h4>
                             <div className="price">₹ {product.price}</div>
-                            <button className="buyButton">Buy now</button>
+                            <button
+                                className="seeDetails"
+                                onClick={() => navigate(`/products/${product.productId}`)}>
+                                See Details
+                            </button>
                         </div>
                     ))}
                 </div>
