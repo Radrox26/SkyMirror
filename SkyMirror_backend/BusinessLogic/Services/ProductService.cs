@@ -93,12 +93,23 @@ namespace SkyMirror.BusinessLogic.Services
             if (product == null)
                 throw new KeyNotFoundException("Product not found");
 
-            product.PanelName = request.PanelName;
-            product.CategoryId = request.CategoryId;
-            product.Description = request.Description;
-            product.Price = request.Price;
-            product.PowerInWatts = request.PowerInWatts;
-            product.StockQuantity = request.StockQuantity;
+            if(request.PanelName != null && !request.PanelName.Equals(""))
+                product.PanelName = request.PanelName;
+
+            if (request.CategoryId != 0)
+                product.CategoryId = request.CategoryId;
+
+            if (request.Description != null && !request.Description.Equals(""))
+                product.Description = request.Description;
+            
+            if(request.Price != 0)
+                product.Price = request.Price;
+
+            if (request.PowerInWatts != 0)
+                product.PowerInWatts = request.PowerInWatts;
+            
+            if(request.StockQuantity != 0)
+                product.StockQuantity = request.StockQuantity;
 
             await _productRepository.UpdateAsync(product);
         }
