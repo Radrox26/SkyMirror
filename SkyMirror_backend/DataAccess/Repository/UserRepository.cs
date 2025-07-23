@@ -2,6 +2,7 @@
 using SkyMirror.DataAccess.Interfaces;
 using SkyMirror.DatabaseContext;
 using SkyMirror.Entities;
+using SkyMirror_backend.Entities;
 
 namespace SkyMirror.DataAccess.Repository
 {
@@ -47,6 +48,11 @@ namespace SkyMirror.DataAccess.Repository
             var user = await _context.Users.FindAsync(id);
             if (user != null)
             {
+                var cart = await _context.Carts.FirstOrDefaultAsync(c => c.UserId == id);
+                if (cart != null)
+                {
+                   _context.Carts.Remove(cart); // removes cart products aswell due to cascade delete in dbContext
+                }
                 _context.Users.Remove(user);
                 await _context.SaveChangesAsync();
             }

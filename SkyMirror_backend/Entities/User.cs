@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using SkyMirror_backend.Entities;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SkyMirror.Entities
@@ -36,6 +37,8 @@ namespace SkyMirror.Entities
         // Navigation Property (One-to-Many with Leads)
         public ICollection<Lead> Leads { get; private set; } = new List<Lead>();
 
+        // Navigation Property (One-to-One with Cart)
+        public Cart? Cart { get; set; }
 
         // Timestamp
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // Auto-set on creation

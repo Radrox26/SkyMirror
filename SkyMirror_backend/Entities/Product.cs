@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SkyMirror_backend.Entities;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -37,6 +38,7 @@ namespace SkyMirror.Entities
         [Range(0, int.MaxValue)] // Ensures stock is non-negative
         public int StockQuantity { get; set; }
 
+
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // Auto-set on creation
         public DateTime CreatedDate { get; private set; } = DateTime.UtcNow;
 
@@ -45,5 +47,8 @@ namespace SkyMirror.Entities
 
         // Navigation Property (One-to-Many with QuotationItems)
         public ICollection<OrderItem> OrderItems { get; private set; } = new List<OrderItem>();
+
+        // Navigation Property (One-to-Many with CartProducts)
+        public List<CartProduct> CartProducts { get; set; } = new List<CartProduct>();
     }
 }

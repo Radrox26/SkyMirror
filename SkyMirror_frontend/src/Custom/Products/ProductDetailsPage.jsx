@@ -12,6 +12,7 @@ function ProductDetailsPage() {
     const [error, setError] = useState('');
     const [images, setImages] = useState([]);
     const [selectedImage, setSelectedImage] = useState(null);
+    const [itemCount, setItemCount] = useState(0);
 
     const allImages = import.meta.glob('../../Images/ProductImages/**/*.png', { eager: true });
 
@@ -124,13 +125,31 @@ function ProductDetailsPage() {
                                         <td>{product.powerInWatts}</td>
                                     </tr>
                                     <tr>
-                                        <td>
+                                        <td rowSpan='2'>
                                             <button
                                                 className="buy-now-button"
                                                 onClick={() => navigate(``)}>
                                                 Buy Now
                                             </button>
                                         </td>
+                                        <td>
+                                            <button
+                                                className="add-button"
+                                                onClick={ () => setItemCount( itemCount+1 )}>
+                                                +
+                                            </button>
+
+                                            <span className="item-count-display">{itemCount}</span>
+
+                                            <button
+                                                className="remove-button"
+                                                onClick={ () => setItemCount ( Math.max(0, itemCount-1)) }>
+                                                -
+                                            </button>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <td>
                                             <button
                                                 className="add-to-cart-button"
