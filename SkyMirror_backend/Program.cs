@@ -7,9 +7,12 @@ using SkyMirror.DataAccess.Interfaces;
 using SkyMirror.DataAccess.Repository;
 using SkyMirror.DataAccess.Seeder;
 using SkyMirror.DatabaseContext;
-using SkyMirror.Entities;
 using SkyMirror.Security.Interfaces;
 using SkyMirror.Security.Utilities;
+using SkyMirror_backend.BusinessLogic.Interfaces;
+using SkyMirror_backend.BusinessLogic.Services;
+using SkyMirror_backend.DataAccess.Interfaces;
+using SkyMirror_backend.DataAccess.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,6 +43,7 @@ builder.Services.AddScoped<IQuotationItemRepository, QuotationItemRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IOrderItemRepository, OrderItemRepository>();
 builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+builder.Services.AddScoped<ICartRepository, CartRepository>();
 
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
@@ -53,6 +57,7 @@ builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IOrderItemService, OrderItemService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICartService, CartService>();
 
 
 // Add services to the container.
