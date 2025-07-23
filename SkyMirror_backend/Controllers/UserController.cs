@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SkyMirror.BusinessLogic.Dto.User;
 using SkyMirror.BusinessLogic.Interfaces;
+using SkyMirror_backend.BusinessLogic.Interfaces;
 
 namespace SkyMirror.Controllers
 {
@@ -9,10 +10,11 @@ namespace SkyMirror.Controllers
     public class UserController : Controller
     {
         private readonly IUserService _userService;
-
-        public UserController(IUserService userService)
+        private readonly ICartService _cartService;
+        public UserController(IUserService userService, ICartService cartService)
         {
             _userService = userService;
+            _cartService = cartService;
         }
 
         [HttpGet]
@@ -71,6 +73,7 @@ namespace SkyMirror.Controllers
                     return BadRequest(ModelState);
 
                 var userId = await _userService.RegisterUserAsync(request);
+                var cart = await _cartService.AddCartAsync(userId); 
                 return CreatedAtAction(nameof(GetUserById), new { id = userId }, userId);
             }
             catch (Exception ex)

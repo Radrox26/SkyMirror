@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SkyMirror.DatabaseContext;
 
@@ -11,9 +12,11 @@ using SkyMirror.DatabaseContext;
 namespace SkyMirror.Migrations
 {
     [DbContext(typeof(SkyMirrorDbContext))]
-    partial class SkyMirrorDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250721005347_AddProductQuantityToCartTables")]
+    partial class AddProductQuantityToCartTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
