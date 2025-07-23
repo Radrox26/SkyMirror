@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SkyMirror.Entities;
+using SkyMirror_backend.Entities;
 
 namespace SkyMirror.DatabaseContext
 {
@@ -17,6 +18,8 @@ namespace SkyMirror.DatabaseContext
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<Payment> Payments { get; set; }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<CartProduct> CartProducts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -84,6 +87,30 @@ namespace SkyMirror.DatabaseContext
                 .WithOne(p => p.Order)
                 .HasForeignKey<Payment>(p => p.OrderId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            // User - Cart (One-to-One) - Delete cart if user is deleted
+            modelBuilder.Entity<User>()
+                .HasOne(u => u.Cart)
+                .WithOne(c => c.User)
+                .HasForeignKey<Cart>(c => c.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<CartProduct>()
+                .HasKey(cp => new { cp.CartId, cp.ProductId }); // Composite Key for CartProduct
+
+            // CartProduct - Cart (Many-to-One) - Delete cart products if cart is deleted
+            modelBuilder.Entity<CartProduct>()
+                .HasOne(cp => cp.Cart)
+                .WithMany(c => c.CartProducts)
+                .HasForeignKey(cp => cp.CartId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // CartProduct - Product (Many-to-One) - Delete cart products if product is deleted
+            modelBuilder.Entity<CartProduct>()
+                .HasOne(cp => cp.Product)
+                .WithMany(p => p.CartProducts)
+                .HasForeignKey(cp => cp.ProductId)
+                .OnDelete(DeleteBehavior.Cascade); 
 
             // Convert Column Names to camelCase
             foreach (var entity in modelBuilder.Model.GetEntityTypes())
