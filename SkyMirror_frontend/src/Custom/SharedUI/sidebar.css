@@ -8,6 +8,7 @@
     transition: width 0.3s;
     overflow-x: hidden;
     z-index: 1000;
+    border-radius: 0px 10px 0px 0px;
 }
 
     .sidebar.open {

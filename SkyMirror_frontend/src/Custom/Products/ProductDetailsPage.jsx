@@ -1,9 +1,10 @@
-import Sidebar from "../SharedUI/sidebar";
-import TopBar from "../SharedUI/topbar";
+import Sidebar from "../SharedUI/sidebar.jsx";
+import TopBar from "../SharedUI/topbar.jsx";
 import './ProductDetailsPage.css';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axiosInstance from '../../Axios/axiosInstance';
+import CartBar from "../SharedUI/cartbar.jsx";
 
 function ProductDetailsPage() {
     const { productId } = useParams();
@@ -65,6 +66,9 @@ function ProductDetailsPage() {
             <TopBar>
                 <h1 className="product-details-topbar-title">Panel Name : {product.panelName}</h1>
             </TopBar>
+
+            <CartBar></CartBar>
+
             <Sidebar />
             <div className="product-details-content-wrapper">
                 <div className="product-details-background-wrapper">

@@ -11,8 +11,6 @@ namespace SkyMirror_backend.DataAccess.Interfaces
 
         Task<CartProduct?> GetProductInCartByIdAsync(int cartId, int productId);
 
-        Task<List<Product>> GetProductsInCartAsync(int cartId);
-
         Task<Cart> AddCartAsync(int userId);
 
         Task<CartProduct> AddProductToCartAsync(CartProduct cartProduct);

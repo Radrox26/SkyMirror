@@ -5,6 +5,7 @@ import SavingsForm from './panelRequirementForm.jsx';
 import backgroundImage from '../../Images/HomePageDesignImage.jpg'; 
 import TopBar from '../SharedUI/topbar.jsx';
 import arrow from '../../Images/curveArrow.png';
+import CartBar from '../SharedUI/cartbar.jsx';
 
 function HomePage() {
     return (
@@ -14,7 +15,7 @@ function HomePage() {
             <div className="background-wrapper">
                 <img src={backgroundImage} alt="bgImage" className="background-image" />
             </div>
-            <TopBar>
+            <TopBar >
                 <div className="home-topbar-left">
                     <div className="home-scrolling-text">
                         Welcome to SkyMirror - Solar Made Easy.
@@ -25,7 +26,7 @@ function HomePage() {
                     <p>Email: <strong>skymirrorSolar@gmail.com</strong></p>
                 </div>
             </TopBar>
-
+            <CartBar></CartBar>
             <Sidebar />
             <main className="home-page-content">
                 <header className="hero">
