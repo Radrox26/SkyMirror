@@ -18,9 +18,9 @@ namespace SkyMirror_backend.DataAccess.Repository
         public Task<Cart?> GetCartByIdAsync(int cartId)
         {
             return _context.Carts
-                .Include(c => c.CartProducts)
-                .ThenInclude(cp => cp.Product)
-                .FirstOrDefaultAsync(c => c.CartId == cartId);
+                    .Include(c => c.CartProducts)
+                    .ThenInclude(cp => cp.Product)
+                    .FirstOrDefaultAsync(c => c.CartId == cartId);
         }
 
         public Task<CartProduct?> GetProductInCartByIdAsync(int cartId, int productId)
@@ -45,9 +45,14 @@ namespace SkyMirror_backend.DataAccess.Repository
             return cartProduct; // Return the auto-generated ID
         }
 
-        public async Task UpdateProductInCartAsync(CartProduct cartProduct)
+        public async Task UpdateProductInCartAsync(CartProduct updatedProduct)
         {
-            _context.Entry(cartProduct).State = EntityState.Modified;
+            var existingProduct = await _context.CartProducts.FindAsync(updatedProduct.CartId, updatedProduct.ProductId);
+            if (existingProduct == null) return;
+
+            existingProduct.ProductQuantity = updatedProduct.ProductQuantity;
+            // Update other properties as needed
+
             await _context.SaveChangesAsync();
         }
 
@@ -61,11 +66,6 @@ namespace SkyMirror_backend.DataAccess.Repository
             throw new NotImplementedException();
         }
         public Task<Cart?> GetCartByUserIdAsync(int userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<Product>> GetProductsInCartAsync(int cartId)
         {
             throw new NotImplementedException();
         }
