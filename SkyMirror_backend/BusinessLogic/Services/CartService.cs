@@ -1,4 +1,6 @@
 ﻿using SkyMirror.DataAccess.Interfaces;
+using SkyMirror.Entities;
+using SkyMirror_backend.BusinessLogic.Dto.Cart;
 using SkyMirror_backend.BusinessLogic.Dto.CartProduct;
 using SkyMirror_backend.BusinessLogic.Interfaces;
 using SkyMirror_backend.DataAccess.Interfaces;
@@ -62,7 +64,7 @@ namespace SkyMirror_backend.BusinessLogic.Services
                 throw new InvalidOperationException($"Cart with ID {request.CartId} does not exist.");
             }
 
-            if (request.ProductId != 0)
+            if (request.ProductId <= 0)
             {
                 throw new ArgumentException("Product ID must be greater than zero.", nameof(request.ProductId));
             }
@@ -95,6 +97,38 @@ namespace SkyMirror_backend.BusinessLogic.Services
             };
             await _cartRepository.AddProductToCartAsync(cartProductToAdd);
             return cartProductToAdd;
+        }
+
+        public async Task<IEnumerable<GetProductInCartResponseDto>> GetCartProductsAsync(int cartId)
+        {
+            if (cartId <= 0)
+            {
+                throw new ArgumentException("Cart ID must be greater than zero.", nameof(cartId));
+            }
+
+            var cart = await _cartRepository.GetCartByIdAsync(cartId);
+
+            if (cart == null)
+            {
+                throw new InvalidOperationException($"Cart with ID {cartId} does not exist.");
+            }
+
+            List<GetProductInCartResponseDto> responseCartProducts = new List<GetProductInCartResponseDto>();
+
+            foreach(var cartProduct in cart.CartProducts)
+            {
+                if (cartProduct.Product == null)
+                    return responseCartProducts;
+
+                responseCartProducts.Add( new GetProductInCartResponseDto(
+                        cartProduct.Product.PanelName,
+                        cartProduct.ProductQuantity,
+                        cartProduct.Product.Price)
+                    );
+            }
+
+            return responseCartProducts;
+
         }
     }
 }
