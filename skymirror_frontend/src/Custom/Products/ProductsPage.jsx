@@ -54,6 +54,7 @@ function ProductsPage() {
             <TopBar>
                 <h1 className="topbar-title">Available Panels</h1>
             </TopBar>
+            <CartBar></CartBar>
             <Sidebar />
             <div className="products-container">
                 <div className="products-grid">

@@ -40,6 +40,10 @@
     color: #ff6a00
 }
 
+.top-bar.home-topbar{
+    width: 90%;
+}
+
 .home-topbar-text {
     font-size: 40px;
     color: #F5F5F5;
@@ -82,12 +86,12 @@
     box-shadow: 0 0 10px #FF6A00;
     font-size: 14px;
     font-weight: bold;
-    text-align: right;
+    text-align: left;
     white-space: nowrap;
 }
 
     .home-topbar-right p {
-        margin: 0;
+        margin: 0px 40px 0px 0px;
         line-height: 1.3;
     }
 

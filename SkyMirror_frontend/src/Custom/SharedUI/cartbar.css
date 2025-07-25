@@ -1,0 +1,34 @@
+.cartbar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    background-color: #424242;
+    color: white;
+    transition: width 0.3s;
+    overflow-x: hidden;
+    z-index: 1000;
+    border-radius: 10px 0px 0px 0px;
+}
+
+    .cartbar.open{
+        width: 500px;
+    }
+
+    .cartbar.closed{
+        width: 50px;
+        background-color: #000000;
+    }
+    
+.cart-toggle-button{
+    width: 100%;
+    background-color: #ff6a00;
+    border:none;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.cart-icon{
+    width: 40px;
+    height: 50px;
+}
