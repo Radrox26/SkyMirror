@@ -7,6 +7,5 @@ namespace SkyMirror.CommonUtilities.Interface
     {
         string GenerateToken(LoginUserResponseDto user);
         string GenerateRefreshToken();
-        ClaimsPrincipal? GetPrincipalFromExpiredToken(string token);
     }
 }

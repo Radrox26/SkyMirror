@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SkyMirror.BusinessLogic.Dto.Product;
 using SkyMirror.BusinessLogic.Interfaces;
+using System.Security.Claims;
 
 namespace SkyMirror.Api.Controllers
 {
@@ -16,11 +18,19 @@ namespace SkyMirror.Api.Controllers
         }
 
         // GET: api/Product
+        [Authorize]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<ProductResponseDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> GetAll()
         {
+            string? fullName = User.FindFirst("FullName")?.Value;
+            string? role = User.FindFirst("RoleName")?.Value;
+            string? email = User.FindFirst("Email")?.Value;
+
+            if (!User.IsInRole("Customer"))
+                return Forbid("You do not have permission to access these resources.");
+
             var products = await _productService.GetAllProductsAsync();
             if (products == null || !products.Any())
                 return NoContent();
@@ -30,10 +40,18 @@ namespace SkyMirror.Api.Controllers
 
         // GET: api/Product/5
         [HttpGet("{id}")]
+        // GET: items/5
+        [HttpGet("/product/{id}")]
         [ProducesResponseType(typeof(ProductResponseDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetById(int id)    
         {
+            string ?fullName = User.FindFirst("FullName")?.Value;
+            string ?role = User.FindFirst("RoleName")?.Value;
+            string ?email = User.FindFirst("Email")?.Value;
+
+            if (!User.IsInRole("Customer"))
+                return Forbid("You do not have permission to access this resource.");
             var product = await _productService.GetProductByIdAsync(id);
             if (product == null)
                 return NotFound($"Product with ID {id} not found.");
