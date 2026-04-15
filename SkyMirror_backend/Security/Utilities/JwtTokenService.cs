@@ -24,9 +24,9 @@ namespace SkyMirror.CommonUtilities.Utilities
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.FullName),
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Role, user.RoleName)
+                new Claim("FullName", user.FullName),
+                new Claim("Email", user.Email),
+                new Claim("RoleName", user.RoleName)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Secret"]));
@@ -51,35 +51,6 @@ namespace SkyMirror.CommonUtilities.Utilities
                 rng.GetBytes(randomNumber);
 
                 return Convert.ToBase64String(randomNumber);
-            }
-        }
-
-        public ClaimsPrincipal? GetPrincipalFromExpiredToken(string token)
-        {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Secret"]);
-
-            try
-            {
-                var validationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    ValidateLifetime = false // We're only validating the signature, not the expiration
-                };
-
-                var principal = tokenHandler.ValidateToken(token, validationParameters, out SecurityToken securityToken);
-                var jwtSecurityToken = securityToken as JwtSecurityToken;
-                if (jwtSecurityToken == null || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
-                    throw new SecurityTokenException("Invalid token");
-
-                return principal;
-            }
-            catch
-            {
-                return null;
             }
         }
     }
