@@ -1,0 +1,109 @@
+.form-wrapper {
+    color: #b6ff00;
+    width: 440px;
+    height: auto;
+    margin: auto;
+    padding: 20px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .1);
+    backdrop-filter: blur(100px);
+    box-shadow: 0 0 50px rgb(230, 138, 10);
+    align-items: center;
+    overflow: hidden;
+    margin-top: 100px;
+    margin-left: 100px;
+    opacity: 1;
+}
+
+h3 {
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px;
+    background: #d9d9d9;
+    border: none;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.green-button {
+    background-color: #00aa00;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 20px;
+    display: block;
+}
+
+    .green-button:hover {
+        background-color: #008800;
+    }
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+}
+
+    .radio-group label {
+        margin-bottom: 8px;
+        font-size: 14px;
+    }
+
+input[type="radio"] {
+    margin-right: 8px;
+}
+
+.availability-message {
+    font-size: 14px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.not-available {
+    color: red;
+}
+
+.available {
+    color: green;
+}
+
+.icon {
+    font-size: 20px;
+    margin-left: 6px;
+    animation: shake 0.4s ease-in-out;
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-3px);
+    }
+
+    50% {
+        transform: translateX(3px);
+    }
+
+    75% {
+        transform: translateX(-3px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}

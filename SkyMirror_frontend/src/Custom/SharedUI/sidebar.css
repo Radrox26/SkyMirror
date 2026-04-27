@@ -1,0 +1,86 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    background-color: #000000;
+    color: white;
+    transition: width 0.3s;
+    overflow-x: hidden;
+    z-index: 1000;
+    border-radius: 0px 10px 0px 0px;
+}
+
+    .sidebar.open {
+        width: 250px;
+    }
+
+    .sidebar.closed {
+        width: 50px;
+    }
+
+        .sidebar.closed .toggle-logo {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+            border-radius: 10%;
+        }
+
+.toggle-btn {
+    background-color: #ff6a00;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+}
+
+.toggle-logo {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    border-radius: 10%;
+}
+
+.nav ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+    .nav ul li {
+        padding: 12px 20px;
+    }
+
+        .nav ul li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+.sidebar.closed .nav ul li {
+    display: none;
+}
+
+.logout-section{
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+}
+
+.icons {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    translate: 0 5px;
+}
+
+.nav ul li a:hover {
+    text-decoration: underline;
+    text-decoration-color: rgb(230, 138, 10);
+    color: rgb(230, 138, 10);
+    transform: 
+}
