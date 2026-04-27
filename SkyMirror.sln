@@ -5,7 +5,7 @@ VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SkyMirror_backend", "SkyMirror_backend\SkyMirror_backend.csproj", "{9270BECC-1C7B-46F3-9554-8D1F803812DD}"
 EndProject
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "skymirror_frontend", "SkyMirror_frontend\skymirror_frontend.esproj", "{1F55CD37-BD3F-4032-A877-21DB3AD7B820}"
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "SkyMirror_frontend", "SkyMirror_frontend\SkyMirror_frontend.esproj", "{1F55CD37-BD3F-4032-A877-21DB3AD7B820}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
