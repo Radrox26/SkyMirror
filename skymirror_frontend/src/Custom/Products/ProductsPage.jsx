@@ -4,6 +4,7 @@ import './ProductsPage.css';
 import productBackgroundImage from '../../Images/Solar Panels at Sunset.png';
 import Sidebar from '../SharedUI/sidebar.jsx';
 import TopBar from '../SharedUI/topbar.jsx';
+import CartBar from '../SharedUI/cartbar.jsx';
 import monofacialImage from '../../Images/ProductImages/Monofacial/monofacial.jpg';
 import bifacialImage from '../../Images/ProductImages/Bifacial/bifacial.jpg';
 import topconImage from '../../Images/ProductImages/Topcon/topcon.jpg';
