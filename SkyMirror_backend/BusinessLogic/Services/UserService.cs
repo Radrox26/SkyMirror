@@ -95,5 +95,12 @@ namespace SkyMirror.BusinessLogic.Services
 
             await _userRepository.DeleteAsync(user.UserId);
         }
+
+        public async Task<int> GetUserIdByEmailAsync(string email)
+        {
+            var user = await _userRepository.GetByEmailAsync(email)
+                       ?? throw new KeyNotFoundException("User not found");
+            return user.UserId;
+        }
     }
 }

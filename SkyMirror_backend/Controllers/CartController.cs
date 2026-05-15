@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SkyMirror.BusinessLogic.Interfaces;
 using SkyMirror_backend.BusinessLogic.Dto.Cart;
 using SkyMirror_backend.BusinessLogic.Dto.CartProduct;
 using SkyMirror_backend.BusinessLogic.Interfaces;
@@ -12,10 +13,12 @@ namespace SkyMirror.Api.Controllers
     public class CartController : ControllerBase
     {
         private readonly ICartService _cartService;
+        private readonly IUserService _userService;
 
-        public CartController(ICartService cartService)
+        public CartController(ICartService cartService, IUserService userService)
         {
             _cartService = cartService;
+            _userService = userService;
         }
 
         // POST: api/Cart/AddCartProduct
@@ -34,12 +37,21 @@ namespace SkyMirror.Api.Controllers
 
         // GET: api/Cart/GetCartProducts/{cartId}
         [Authorize(Roles = "Customer")]
-        [HttpGet("GetCartProducts/{cartId}")]
+        [HttpGet("GetCartProducts")]
         [ProducesResponseType(typeof(IEnumerable<GetProductInCartResponseDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> GetCartProducts(int cartId)
+        public async Task<IActionResult> GetCartProducts()
         {
-            var cartProducts = await _cartService.GetCartProductsAsync(cartId);
+            var claims = User.Claims.ToList();
+            var email = User.FindFirst("Email")?.Value;
+
+            if(email == null)
+                return Unauthorized("Unauthorized Access");
+
+            var userId = await _userService.GetUserIdByEmailAsync(email);
+
+            //We always have userId same as cartId.
+            var cartProducts = await _cartService.GetCartProductsAsync(userId);
             if (cartProducts == null || !cartProducts.Any())
                 return NoContent();
 

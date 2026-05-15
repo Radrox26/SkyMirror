@@ -12,7 +12,7 @@ const CartBar = () => {
     useEffect(() => {
         const fetchCartProducts = async () => {
             try {
-                const response = await axiosInstance.get('Cart/GetCartProducts/3', {
+                const response = await axiosInstance.get('Cart/GetCartProducts', {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('accessToken')}`
                     }
