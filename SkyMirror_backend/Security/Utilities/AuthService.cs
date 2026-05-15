@@ -40,7 +40,7 @@ namespace SkyMirror.BusinessLogic.Services
             var userResponse = new LoginUserResponseDto("", accessTokenExpiry, user.FullName, user.Email, userRole.RoleName);
 
             // Now generate the token using the response DTO
-            var token = _jwtTokenService.GenerateToken(userResponse);
+            var accessToken = _jwtTokenService.GenerateAccessToken(userResponse);
             var refreshToken = _jwtTokenService.GenerateRefreshToken();
 
             // Update user with refresh token and expiry
@@ -49,7 +49,7 @@ namespace SkyMirror.BusinessLogic.Services
             await _userRepository.UpdateAsync(user);
 
             // Return the updated response DTO with the generated token
-            return new LoginUserResponseDto(token, accessTokenExpiry, user.FullName, user.Email, userRole.RoleName)
+            return new LoginUserResponseDto(accessToken, accessTokenExpiry, user.FullName, user.Email, userRole.RoleName)
             {
                 RefreshToken = refreshToken,
                 RefreshTokenExpiry = refreshTokenExpiry
@@ -74,7 +74,7 @@ namespace SkyMirror.BusinessLogic.Services
             var userResponse = new LoginUserResponseDto("", accessTokenExpiry, user.FullName, user.Email, userRole.RoleName);
 
             // Now generate the token using the response DTO
-            var newToken = _jwtTokenService.GenerateToken(userResponse);
+            var newToken = _jwtTokenService.GenerateAccessToken(userResponse);
 
             // Update user with new refresh token and expiry
             user.RefreshToken = newRefreshToken;

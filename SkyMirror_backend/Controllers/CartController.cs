@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SkyMirror_backend.BusinessLogic.Dto.Cart;
 using SkyMirror_backend.BusinessLogic.Dto.CartProduct;
 using SkyMirror_backend.BusinessLogic.Interfaces;
@@ -32,6 +33,7 @@ namespace SkyMirror.Api.Controllers
         }
 
         // GET: api/Cart/GetCartProducts/{cartId}
+        [Authorize(Roles = "Customer")]
         [HttpGet("GetCartProducts/{cartId}")]
         [ProducesResponseType(typeof(IEnumerable<GetProductInCartResponseDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]

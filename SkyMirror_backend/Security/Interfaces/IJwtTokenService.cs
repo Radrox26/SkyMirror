@@ -5,7 +5,7 @@ namespace SkyMirror.CommonUtilities.Interface
 {
     public interface IJwtTokenService
     {
-        string GenerateToken(LoginUserResponseDto user);
+        string GenerateAccessToken(LoginUserResponseDto user);
         string GenerateRefreshToken();
     }
 }

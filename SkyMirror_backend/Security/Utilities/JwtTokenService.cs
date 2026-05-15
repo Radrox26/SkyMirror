@@ -20,7 +20,7 @@ namespace SkyMirror.CommonUtilities.Utilities
 
         
 
-        public string GenerateToken(LoginUserResponseDto user)
+        public string GenerateAccessToken(LoginUserResponseDto user)
         {
             var claims = new List<Claim>
             {
