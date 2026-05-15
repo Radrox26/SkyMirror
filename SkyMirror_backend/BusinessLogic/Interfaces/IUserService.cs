@@ -9,5 +9,6 @@ namespace SkyMirror.BusinessLogic.Interfaces
         Task<int> RegisterUserAsync(CreateUserRequestDto request);
         Task UpdateUserAsync(int userId, UpdateUserRequestDto request);
         Task DeleteUserAsync(int userId);
+        Task<int> GetUserIdByEmailAsync(string email);
     }
 }
