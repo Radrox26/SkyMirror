@@ -18,7 +18,7 @@ namespace SkyMirror.Api.Controllers
         }
 
         // GET: api/Product
-        [Authorize]
+        [Authorize(Roles = "Customer")]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<ProductResponseDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]

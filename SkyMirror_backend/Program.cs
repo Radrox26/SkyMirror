@@ -13,18 +13,21 @@ using SkyMirror_backend.BusinessLogic.Interfaces;
 using SkyMirror_backend.BusinessLogic.Services;
 using SkyMirror_backend.DataAccess.Interfaces;
 using SkyMirror_backend.DataAccess.Repository;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowFrontend",
+    options.AddPolicy("AllowSkyMirrorFrontend",
         policy =>
         {
             policy.WithOrigins("http://localhost:5173")
-                  .AllowCredentials()
-                  .AllowAnyHeader()
-                  .AllowAnyMethod();
+                  .WithHeaders("Authorization", "Content-Type")
+                  .WithMethods("GET", "POST", "PUT", "DELETE", "PATCH")
+                  .AllowCredentials();
         });
 });
 
@@ -33,6 +36,7 @@ builder.Services.AddDbContext<SkyMirrorDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Register Repositories
+// Core Repositories
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserRoleRepository, UserRoleRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
@@ -45,10 +49,12 @@ builder.Services.AddScoped<IOrderItemRepository, OrderItemRepository>();
 builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 builder.Services.AddScoped<ICartRepository, CartRepository>();
 
+// Security and Utility Repositories
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
+// Core Services
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ILeadService, LeadService>();
 builder.Services.AddScoped<IQuotationService, QuotationService>();
@@ -69,9 +75,10 @@ builder.Services.AddSwaggerGen();
 
 // Add Authentication
 
- /* builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
+        var jwtSecret = builder.Configuration["Jwt:Secret"];
         options.TokenValidationParameters = new TokenValidationParameters
         {
             // Configure your token validation parameters here
@@ -79,12 +86,17 @@ builder.Services.AddSwaggerGen();
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
+
             ValidIssuer = builder.Configuration["Jwt:Issuer"],
             ValidAudience = builder.Configuration["Jwt:Audience"],
+
             IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+                Encoding.UTF8.GetBytes(jwtSecret!)),
+
+            NameClaimType = "FullName", // To support custom claim for user's full name in the Authorize attribute
+            RoleClaimType = "RoleName" // To support custom claim for user's role name in the Authorize attribute
         };
-    }); */
+    }); 
 
 var app = builder.Build();
 
@@ -107,7 +119,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors("AllowFrontend");
+app.UseCors("AllowSkyMirrorFrontend");
 
 app.UseHttpsRedirection();
 

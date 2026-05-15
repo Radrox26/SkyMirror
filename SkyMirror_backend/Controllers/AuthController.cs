@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SkyMirror.BusinessLogic.Dto.User;
 using SkyMirror.Security.Interfaces;
 
@@ -15,6 +16,7 @@ namespace SkyMirror_backend.Controllers
             _authService = authService;
         }
 
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginUserRequestDto request)
         {
